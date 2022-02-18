@@ -1,0 +1,8 @@
+// 组件页面中显示的组件 demo 的排版样式，与组件自身样式无关
+.demo-block.demo-alert .el-alert {
+  margin: 20px 0 0;
+}
+
+.demo-block.demo-alert .el-alert:first-child {
+  margin: 0;
+}

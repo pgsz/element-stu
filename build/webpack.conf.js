@@ -8,6 +8,7 @@ const config = require('./config');
 module.exports = {
   mode: 'production',
   entry: {
+    // umd 的全量包
     app: ['./src/index.js']
   },
   output: {

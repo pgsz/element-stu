@@ -13,7 +13,7 @@ langConfig.forEach(lang => {
   } catch (e) {
     // 创建四种语言目录
     fs.mkdirSync(path.resolve(__dirname, `../../examples/pages/${ lang.lang }`));
- }
+  }
 
   // 遍历所有页面，根据 page.tpl 自动生成对应语言的 .vue 文件
   Object.keys(lang.pages).forEach(page => {
@@ -24,7 +24,7 @@ langConfig.forEach(lang => {
     var outputPath = path.resolve(__dirname, `../../examples/pages/${ lang.lang }/${ page }.vue`);
     // 读取模板内容
     var content = fs.readFileSync(templatePath, 'utf8');
-    // 读取 页面 的所有键值对的配置  
+    // 读取 页面 的所有键值对的配置
     var pairs = lang.pages[page];
 
     // 遍历键值对，通过正则匹配的方式替换模板中对应的 key

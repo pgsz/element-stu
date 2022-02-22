@@ -7,6 +7,7 @@ const config = require('./config');
 
 const webpackConfig = {
   mode: 'production',
+  // 按需加载 entry: []
   entry: Components,
   output: {
     path: path.resolve(process.cwd(), './lib'),

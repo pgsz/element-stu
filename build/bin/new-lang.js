@@ -2,7 +2,7 @@
 
 /**
  * 为组件库添加新语言
- * 分别为设计到的文件 component.json、page.json、route.json、nav.config.json、docs 设置改语言的相关配置
+ * 分别为涉及到的文件 component.json、page.json、route.json、nav.config.json、docs 设置改语言的相关配置
  * 具体配置默认为英语，只需要在相应的文件中将这些英文配置翻译成对应的语言即可
 */
 console.log();

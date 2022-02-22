@@ -17,6 +17,7 @@ import title from './i18n/title';
 
 // 组件库样式
 import 'packages/theme-chalk/src/index.scss';
+// 官网组件页面样式
 import './demo-styles/index.scss';
 import './assets/styles/common.css';
 import './assets/styles/fonts/style.css';

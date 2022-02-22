@@ -7,6 +7,7 @@ const config = require('./config');
 module.exports = {
   mode: 'production',
   entry: {
+    // 全量包
     app: ['./src/index.js']
   },
   output: {

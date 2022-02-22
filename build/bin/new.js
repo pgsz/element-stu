@@ -1,8 +1,13 @@
 'use strict';
 
 /**
- * 添加新组件
- * 
+ * 添加新组件，专注于组件代码
+ *  1：在 /packages 目录下新建组件目录，并完成目录结构的构建
+ *  2：创建语言的组件文档， /examples/docs/{lang}/city.md
+ *  3：创建组件单元测试文件， /test/unit/specs/city.md
+ *  4：创建组件样式文件， /packages/theme-chalk/src/city.scss
+ *  5：创建组件类型声明文件， /types/city.d.ts
+ *  6：配置：在对应的文件中添加配置信息
 */
 console.log();
 process.on('exit', () => {

@@ -134,6 +134,7 @@ const webpackConfig = {
 
 if (isProd) {
   webpackConfig.externals = {
+    // 左边：package.json 中的包名，右边是包中导出的名字，需要在 node_modules 中查看
     vue: 'Vue',
     'vue-router': 'VueRouter',
     'highlight.js': 'hljs'

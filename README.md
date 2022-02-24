@@ -210,3 +210,102 @@ node_modules/.bin/et --help
 
 
 
+
+
+
+
+
+
+
+
+
+## Vue 升级
+
+element-ui 本身依赖于 vue@^2.5x，该版本的的 vue 不支持最新的 `v-slot` 语法
+
+升级 Vue 版本，设计三个包：
+
+ - 删除旧包
+ ```shell
+ npm uninstall vue @vue/component-compiler-utils vue-template-compiler -D
+ ``` 
+ - 安装新包
+ ```shell
+ npm install vue@^2.6.12 @vue/component-compiler-utils@^3.2.0 vue-template-compiler@^2.6.12 -D
+ ``` 
+ - 更新 package.json 中的 peerDependencies
+ ```json
+ {
+  "peerDependencies": {
+    "vue": "^2.6.12"
+  }
+ }
+ ```
+
+ ## package.json
+
+ [参考来源：http://javascript.ruanyifeng.com/nodejs/packagejson.html](http://javascript.ruanyifeng.com/nodejs/packagejson.html)
+
+ ### npm-shrinkwrap.json
+
+ `npm shrinkwrap` 是 npm 包管理器的一项功能，可以按照当前项目 node_modules 目录内的安装包情况生成稳定的版本号描述，形成 npm 资源树
+
+与`package-lock.json` 的区别
+
+- npm install 或 npm init 会自动生成 package-lock.json，安装信息会依据该文件进行
+- npm-shrinkwrap.json 优先级高于 package-lock.json
+- npm-shrinkwrap.json 可以在发布包中出现，package-lock.json 不会出现在发布包中，及时出现，也会被 npm 无视
+
+ 
+### peerDependencies
+
+`peerDependencies` 的目的是提示宿主环境去安装满足创建 peerDependencies 所指定依赖的包，然后在插件 import 或 require 所依赖包的时候，永远都是使用宿主环境统一安装的 npm 包，最终解决插件与所依赖包不一致的问题，供插件指定所需要的主工的具版本。
+
+### scripts
+
+`scripts` 指定了运行脚本命令的 npm 命令行缩写
+
+### dependencies 与 devDependencies
+
+ - `dependencies` 字段指定了项目运行所依赖的模块
+ - `devDependencies` 指定项目开发所依赖的模块
+
+都指向一个对象，由模块名和对应的版本要求组成，表示所依赖的模块和对应的版本要求
+
+> `指定版本`：比如 `1.2.2`，遵循 `大版本.次要版本.小版本` 的格式要求，安装时只安装指定版本
+> 
+> `波浪号（tilde）+指定版本`：比如 `~1.2.2`，表示安装 1.2.x 的最新版本（不低于 1.2.2），但是不安装 1.3.x，也就是说安装时不改变大版本号和次要版本号
+> 
+> `插入号（caret）+指定版本`：比如 `^1.2.2`，表示安装 1.x.x 的最新版本（不低于 1.2.2），但是不安装 2.x.x，也就是说安装时不改变大版本号。需要注意的是：如果大版本号为 0，则插入号的行为与波浪号相同。
+> 
+> `latest`：安装最新版本
+
+### bin
+
+`bin` 项用来指定各个内部命令对应的可执行文件的位置
+
+所有 `node_modules/.bin` 目录下的命令，都可以使用 `npm run [命令]` 的格式来运行
+
+```json
+"bin": {
+  "someTool": "./bin/someTool.js"
+}
+
+"scripts": {  
+  "start": "./node_modules/bin/someTool.js build"
+}
+
+// 简写为
+
+"scripts": {  
+  "start": "someTool build"
+}
+```
+
+### main
+
+`main` 字段指定加载的入口文件，默认值模块根目录下的 `index.js`
+
+### config
+
+`config` 字段用于添加命令行的环境变量

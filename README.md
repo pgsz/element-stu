@@ -76,7 +76,6 @@ node_modules/.bin/et --help
 
 有些组件的有些样式不属于主题样式，但和设计稿不一致的话，就需要覆写组件和自定义组件的样式
 
-
 - 将 `/packages/theme-pg/src` 目录下的所有文件删除
 - 加入覆写 button 组件的部分样式
     - 在 `/packages/theme-pg/src` 目录下新建 `button.scss` 文件
@@ -208,17 +207,6 @@ node_modules/.bin/et --help
     - 启动开发环境，即可查看下个
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## Vue 升级
 
 element-ui 本身依赖于 vue@^2.5x，该版本的的 vue 不支持最新的 `v-slot` 语法
@@ -242,6 +230,7 @@ element-ui 本身依赖于 vue@^2.5x，该版本的的 vue 不支持最新的 `v
  }
  ```
 
+
  ## package.json
 
  [参考来源：http://javascript.ruanyifeng.com/nodejs/packagejson.html](http://javascript.ruanyifeng.com/nodejs/packagejson.html)
@@ -256,7 +245,6 @@ element-ui 本身依赖于 vue@^2.5x，该版本的的 vue 不支持最新的 `v
 - npm-shrinkwrap.json 优先级高于 package-lock.json
 - npm-shrinkwrap.json 可以在发布包中出现，package-lock.json 不会出现在发布包中，及时出现，也会被 npm 无视
 
- 
 ### peerDependencies
 
 `peerDependencies` 的目的是提示宿主环境去安装满足创建 peerDependencies 所指定依赖的包，然后在插件 import 或 require 所依赖包的时候，永远都是使用宿主环境统一安装的 npm 包，最终解决插件与所依赖包不一致的问题，供插件指定所需要的主工的具版本。
@@ -309,3 +297,96 @@ element-ui 本身依赖于 vue@^2.5x，该版本的的 vue 不支持最新的 `v
 ### config
 
 `config` 字段用于添加命令行的环境变量
+
+### files
+
+`files` 字段用来发布 `npm` 包时告诉发布程序只将 files 中指定的 文件 和 目录 上传到 npm 服务器
+
+### repository
+
+`repository` 字段代码库地址
+
+
+## npm
+
+[参考资料：https://www.cnblogs.com/kunmomo/p/11221786.html](https://www.cnblogs.com/kunmomo/p/11221786.html)
+
+### 发布 npm 
+
+ - 在 `https://www.npmjs.com/` 上注册账号，记住 用户名、密码和邮箱
+ - 在本地添加 `npm` 账户
+   - 输入 `npm adduser` 命令，填入你的 用户名、密码和邮箱
+   - 切记将 `npm` 源设置为 `npm config set registry https://registry.npmjs.org/`，否则无法登录成功
+    ![](/myImages/npm-adduser.png) 
+- 第一次上传运行 `npm publish --access public`
+- 即可在 npm 官网搜索刚刚上传 npm 包的名称
+
+### 更新包
+
+- 修改 package.json 文件中的版本，否则无法更新
+- 执行 npm publish 发布新版本
+
+
+## 组件库文档按需加载
+
+安装 `babel-plugin-component`
+
+安装 `babel-loader、@babel/core`
+
+```shell
+npm install --save-dev babel-plugin-component babel-loader @babel/core
+```
+
+```js
+// webpack.config.js
+const path = require('path')
+
+module.exports = {
+  entry: './src/index.js',
+  mode: 'development',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'main.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
+  }
+}
+```
+
+安装 `@babel/preset-env`
+
+创建 `.babelrc` 文件
+
+```json
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "@liyongning/lyn-comp-lib",
+        "style": false
+      }
+    ]
+  ]
+}
+
+```
+
+
+## 其他
+
+### touch
+
+windows 想要使用 touch 指令需要单独安装
+
+```shell
+npm install touch-cli -g
+```

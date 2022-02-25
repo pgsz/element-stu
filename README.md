@@ -371,13 +371,12 @@ module.exports = {
     [
       "component",
       {
-        "libraryName": "@liyongning/lyn-comp-lib",
+        "libraryName": "@pgsz/pg-comp-lib",
         "style": false
       }
     ]
   ]
 }
-
 ```
 
 
